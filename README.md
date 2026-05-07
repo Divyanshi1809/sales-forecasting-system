@@ -1,3 +1,4 @@
+📊 Sales Forecasting System (End-to-End ML Project)
 📌 Project Overview
 
 The Sales Forecasting System is a machine learning-based web application that predicts future sales using historical patterns and engineered time-series features. The system uses a trained regression model exposed through a FastAPI backend and a simple interactive frontend dashboard built with HTML, CSS, and JavaScript.
@@ -52,3 +53,20 @@ Uvicorn (ASGI Server)
 📊 Time-series feature engineering
 ⚡ Fast prediction response
 🔗 Frontend-backend integration using Fetch API
+📂 Project Structure
+forecasting-project/
+│
+├── app.py                  # FastAPI backend
+├── best_model.pkl          # Trained ML model
+├── requirements.txt        # Dependencies
+├── index.html              # Frontend UI
+└── README.md               # Project documentation
+📊 Results
+The system successfully generates future sales forecasts based on historical patterns.
+Provides quick and interactive predictions via web interface.
+Backend API ensures scalable deployment for real-world usage.
+🔮 Future Improvements
+Integration of LSTM/Deep Learning models for better sequence forecasting
+Dynamic multi-step prediction instead of constant outputs
+Visualization dashboard using Chart.js or Plotly
+Cloud deployment (AWS / Render / Azure)
