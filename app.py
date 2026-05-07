@@ -17,9 +17,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Serve frontend (THIS IS THE MAIN FIX)
-app.mount("/", StaticFiles(directory="static", html=True), name="static")
-
 # Load model safely
 model = pickle.load(open("best_model.pkl", "rb"))
 
