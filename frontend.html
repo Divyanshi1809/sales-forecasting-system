@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sales Forecasting Dashboard</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            padding: 40px;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 700px;
+            margin: auto;
+            box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+          input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+         #result {
+            margin-top: 20px;
+            background: #eef2ff;
+            padding: 15px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Sales Forecasting System</h1>
+
+    <input type="number" id="lag1" placeholder="Lag 1">
+    <input type="number" id="lag7" placeholder="Lag 7">
+    <input type="number" id="lag30" placeholder="Lag 30">
+    <input type="number" id="rollingmean" placeholder="Rolling Mean 7">
+    <input type="number" id="rollingstd" placeholder="Rolling Std 7">
+    <input type="number" id="day" placeholder="Day of Week">
+    <input type="number" id="month" placeholder="Month">
+
+    <button onclick="predictSales()">Generate Forecast</button>
+
+    <div id="result"></div>
+
+</div>
+
+<script>
+
+async function predictSales() {
+
+    let lag1 = document.getElementById("lag1").value;
+    let lag7 = document.getElementById("lag7").value;
+    let lag30 = document.getElementById("lag30").value;
+    let rollingmean = document.getElementById("rollingmean").value;
+    let rollingstd = document.getElementById("rollingstd").value;
+    let day = document.getElementById("day").value;
+    let month = document.getElementById("month").value;
+
+    let response = await fetch(
+        `http://127.0.0.1:8000/predict?lag_1=${lag1}&lag_7=${lag7}&lag_30=${lag30}&rolling_mean_7=${rollingmean}&rolling_std_7=${rollingstd}&day_of_week=${day}&month=${month}`
+    );
+
+    let data = await response.json();
+    document.getElementById("result").innerHTML = `
+        <h3>Forecast Generated Successfully</h3>
+        <p><b>Next 8 Weeks Forecast:</b></p>
+        <p>${data.forecast_next_8_weeks.join(", ")}</p>
+    `;
+}
+
+</script>
+
+</body>
+</html>
