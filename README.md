@@ -29,10 +29,15 @@ Rolling Mean (7-day average)
 Rolling Standard Deviation (7-day volatility)
 Day of Week
 Month
+
 📌 Output:
 Forecast of next 8 weeks sales
+
+
 📌 Model Used:
 Trained regression-based machine learning model (e.g., XGBoost / Random Forest / similar ensemble model)
+
+
 💻 Tech Stack
 Backend:
 FastAPI
@@ -46,6 +51,8 @@ CSS3
 JavaScript (Fetch API)
 Deployment:
 Uvicorn (ASGI Server)
+
+
 🚀 Features
 📈 Real-time sales prediction API
 🌐 Interactive web dashboard
@@ -53,6 +60,8 @@ Uvicorn (ASGI Server)
 📊 Time-series feature engineering
 ⚡ Fast prediction response
 🔗 Frontend-backend integration using Fetch API
+
+
 📂 Project Structure
 forecasting-project/
 │
@@ -61,10 +70,15 @@ forecasting-project/
 ├── requirements.txt        # Dependencies
 ├── index.html              # Frontend UI
 └── README.md               # Project documentation
+
+
 📊 Results
 The system successfully generates future sales forecasts based on historical patterns.
 Provides quick and interactive predictions via web interface.
 Backend API ensures scalable deployment for real-world usage.
+
+
+
 🔮 Future Improvements
 Integration of LSTM/Deep Learning models for better sequence forecasting
 Dynamic multi-step prediction instead of constant outputs
