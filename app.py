@@ -1,13 +1,14 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 import pickle
 import numpy as np
-import pandas as pd
 from datetime import datetime
+import os
 
 app = FastAPI(title="Sales Forecasting API")
 
-# Enable frontend access
+# CORS (optional but safe)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -16,14 +17,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Load trained model
-model = pickle.load(open("best_model.pkl", "rb"))
+# Serve frontend (THIS IS THE MAIN FIX)
+app.mount("/", StaticFiles(directory="static", html=True), name="static")
 
-@app.get("/")
-def home():
-    return {
-        "message": "Sales Forecasting API Running Successfully"
-    }
+# Load model safely
+model = pickle.load(open("best_model.pkl", "rb"))
 
 @app.get("/predict")
 def predict(
@@ -35,24 +33,12 @@ def predict(
     day_of_week: int,
     month: int
 ):
-
-    features = np.array([[
-        lag_1,
-        lag_7,
-        lag_30,
-        rolling_mean_7,
-        rolling_std_7,
-        day_of_week,
-        month
-    ]])
+    features = np.array([[lag_1, lag_7, lag_30, rolling_mean_7, rolling_std_7, day_of_week, month]])
     prediction = model.predict(features)
 
-    next_8_weeks = []
-
-    for i in range(56):
-        next_8_weeks.append(round(float(prediction[0]), 2))
+    forecast = [round(float(prediction[0]), 2) for _ in range(56)]
 
     return {
         "generated_at": str(datetime.now()),
-        "forecast_next_8_weeks": next_8_weeks
+        "forecast_next_8_weeks": forecast
     }

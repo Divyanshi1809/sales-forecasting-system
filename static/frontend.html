@@ -89,9 +89,12 @@ async function predictSales() {
     let day = document.getElementById("day").value;
     let month = document.getElementById("month").value;
 
-    let response = await fetch(
-        `http://127.0.0.1:8000/predict?lag_1=${lag1}&lag_7=${lag7}&lag_30=${lag30}&rolling_mean_7=${rollingmean}&rolling_std_7=${rollingstd}&day_of_week=${day}&month=${month}`
-    );
+    let response = await fetch("/predict?lag_1=" + lag1 + "&lag_7=" + lag7 +
+"&lag_30=" + lag30 +
+"&rolling_mean_7=" + rollingmean +
+"&rolling_std_7=" + rollingstd +
+"&day_of_week=" + day +
+"&month=" + month)
 
     let data = await response.json();
     document.getElementById("result").innerHTML = `
